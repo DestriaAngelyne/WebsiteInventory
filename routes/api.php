@@ -17,6 +17,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
+    Route::post('/profile/avatar', [AuthController::class, 'uploadAvatar']);
 
     Route::middleware('admin')->group(function () {
         Route::apiResource('barang', BarangController::class);
