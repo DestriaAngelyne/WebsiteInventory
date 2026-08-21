@@ -17,6 +17,8 @@ class AuthController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'nisn' => ['nullable', 'string', 'max:20'],
+            'kelas' => ['nullable', 'string', 'max:50'],
         ]);
 
         $user = User::create([
@@ -24,6 +26,8 @@ class AuthController extends Controller
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
             'role' => 'siswa',
+            'nisn' => $validated['nisn'] ?? null,
+            'kelas' => $validated['kelas'] ?? null,
         ]);
 
         return response()->json([

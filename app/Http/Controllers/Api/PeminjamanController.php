@@ -25,6 +25,7 @@ class PeminjamanController extends Controller
         $validated = $request->validate([
             'barang_id' => ['required', 'exists:barang,id'],
             'jumlah' => ['required', 'integer', 'min:1'],
+            'alasan' => ['nullable', 'string', 'max:500'],
             'tanggal_pinjam' => ['required', 'date'],
             'tanggal_kembali_rencana' => ['required', 'date', 'after_or_equal:tanggal_pinjam'],
         ]);
