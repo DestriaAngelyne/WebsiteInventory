@@ -12,8 +12,14 @@
       <router-link v-if="authStore.isAdmin" to="/admin/users" class="hover:underline">
         Manajemen User
       </router-link>
+      <router-link v-if="authStore.isAdmin" to="/admin/pengaduan" class="hover:underline">
+        Pengaduan
+      </router-link>
       <router-link v-if="!authStore.isAdmin" to="/peminjaman" class="hover:underline">
         Peminjaman Saya
+      </router-link>
+      <router-link v-if="!authStore.isAdmin" to="/pengaduan" class="hover:underline">
+        Pengaduan
       </router-link>
       <router-link v-if="!authStore.isAdmin" to="/notifikasi" class="relative hover:underline">
         🔔

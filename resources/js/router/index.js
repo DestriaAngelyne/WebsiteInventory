@@ -56,16 +56,28 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-  path: '/admin/users',
-  name: 'admin.users.index',
-  component: () => import('../pages/admin/users/Index.vue'),
-  meta: { requiresAuth: true, adminOnly: true },
+    path: '/admin/users',
+    name: 'admin.users.index',
+    component: () => import('../pages/admin/users/Index.vue'),
+    meta: { requiresAuth: true, adminOnly: true },
   },
   {
-  path: '/notifikasi',
-  name: 'notifikasi.index',
-  component: () => import('../pages/siswa/notifikasi/Index.vue'),
-  meta: { requiresAuth: true },
+    path: '/notifikasi',
+    name: 'notifikasi.index',
+    component: () => import('../pages/siswa/notifikasi/Index.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/pengaduan',
+    name: 'pengaduan.index',
+    component: () => import('../pages/siswa/pengaduan/Index.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/admin/pengaduan',
+    name: 'admin.pengaduan.index',
+    component: () => import('../pages/admin/pengaduan/Index.vue'),
+    meta: { requiresAuth: true, adminOnly: true },
   },
 ];
 
