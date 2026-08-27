@@ -28,6 +28,18 @@ export const useAuthStore = defineStore('auth', {
       this.clearSession();
     },
 
+    async uploadAvatar(file) {
+      const formData = new FormData();
+      formData.append('avatar', file);
+
+      const response = await api.post('/profile/avatar', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+
+      this.user = response.data;
+      localStorage.setItem('user', JSON.stringify(response.data));
+    },
+
     setSession(user, token) {
       this.user = user;
       this.token = token;

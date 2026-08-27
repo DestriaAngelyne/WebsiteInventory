@@ -80,7 +80,7 @@ class AuthController extends Controller
     public function uploadAvatar(Request $request)
     {
         $validated = $request->validate([
-            'avatar' => ['required', 'image', 'max:2048'],
+            'avatar' => ['required', 'image', 'max:5120'],
         ]);
 
         $user = $request->user();

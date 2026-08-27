@@ -79,6 +79,12 @@ const routes = [
     component: () => import('../pages/admin/pengaduan/Index.vue'),
     meta: { requiresAuth: true, adminOnly: true },
   },
+  {
+  path: '/profil',
+  name: 'profil.index',
+  component: () => import('../pages/profil/Index.vue'),
+  meta: { requiresAuth: true },
+  },
 ];
 
 const router = createRouter({

@@ -30,7 +30,9 @@
           {{ notifCount }}
         </span>
       </router-link>
-      <span>{{ authStore.user?.name }} ({{ authStore.user?.role }})</span>
+      <router-link to="/profil" class="hover:underline">
+        {{ authStore.user?.name }} ({{ authStore.user?.role }})
+      </router-link>
       <button @click="handleLogout" class="text-red-600 hover:underline">
         Logout
       </button>
