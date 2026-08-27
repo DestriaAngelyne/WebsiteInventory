@@ -30,8 +30,20 @@
           {{ notifCount }}
         </span>
       </router-link>
-      <router-link to="/profil" class="hover:underline">
-        {{ authStore.user?.name }} ({{ authStore.user?.role }})
+      <router-link to="/profil" class="flex items-center gap-2 hover:underline">
+        <img
+          v-if="authStore.user?.avatar"
+          :src="`/storage/${authStore.user.avatar}`"
+          alt="Avatar"
+          class="object-cover w-6 h-6 rounded-full"
+        />
+        <div
+          v-else
+          class="flex items-center justify-center w-6 h-6 text-xs font-bold text-gray-500 bg-gray-200 rounded-full"
+        >
+          {{ authStore.user?.name?.charAt(0) }}
+        </div>
+        <span>{{ authStore.user?.name }} ({{ authStore.user?.role }})</span>
       </router-link>
       <button @click="handleLogout" class="text-red-600 hover:underline">
         Logout
