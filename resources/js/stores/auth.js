@@ -40,6 +40,17 @@ export const useAuthStore = defineStore('auth', {
       localStorage.setItem('user', JSON.stringify(response.data));
     },
 
+    async updateProfile(payload) {
+      const response = await api.put('/profile', payload);
+      this.user = response.data;
+      localStorage.setItem('user', JSON.stringify(response.data));
+    },
+
+    async changePassword(payload) {
+      const response = await api.put('/profile/password', payload);
+      return response.data;
+    },
+
     setSession(user, token) {
       this.user = user;
       this.token = token;

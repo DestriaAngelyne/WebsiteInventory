@@ -85,6 +85,11 @@ const routes = [
   component: () => import('../pages/profil/Index.vue'),
   meta: { requiresAuth: true },
   },
+  {
+  path: '/pengaturan',
+  component: () => import('../pages/pengaturan/Index.vue'),
+  meta: { requiresAuth: true }, // sesuaikan dengan meta yang dipakai route /profil
+  },
 ];
 
 const router = createRouter({

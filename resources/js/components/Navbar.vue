@@ -30,6 +30,9 @@
           {{ notifCount }}
         </span>
       </router-link>
+      <router-link to="/pengaturan" class="hover:underline">
+        Pengaturan
+      </router-link>
       <router-link to="/profil" class="flex items-center gap-2 hover:underline">
         <img
           v-if="authStore.user?.avatar"
