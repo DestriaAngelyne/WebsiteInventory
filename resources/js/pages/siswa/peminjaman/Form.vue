@@ -25,9 +25,19 @@
         <input v-model="form.tanggal_pinjam" type="date" required class="w-full px-3 py-2 border rounded" />
       </div>
 
-      <div class="mb-4">
+      <div class="mb-3">
         <label class="block mb-1 text-sm font-medium">Rencana Tanggal Kembali</label>
         <input v-model="form.tanggal_kembali_rencana" type="date" required class="w-full px-3 py-2 border rounded" />
+      </div>
+
+      <div class="mb-4">
+        <label class="block mb-1 text-sm font-medium">Alasan Peminjaman</label>
+        <textarea
+          v-model="form.alasan"
+          rows="3"
+          placeholder="Contoh: Untuk presentasi tugas PKWU"
+          class="w-full px-3 py-2 text-sm border rounded"
+        ></textarea>
       </div>
 
       <div class="flex gap-2">
@@ -60,6 +70,7 @@ const form = reactive({
   jumlah: 1,
   tanggal_pinjam: '',
   tanggal_kembali_rencana: '',
+  alasan: '',
 });
 
 onMounted(() => {
