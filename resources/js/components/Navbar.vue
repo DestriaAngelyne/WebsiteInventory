@@ -9,6 +9,9 @@
       <router-link v-if="authStore.isAdmin" to="/admin/peminjaman" class="hover:underline">
         Kelola Peminjaman
       </router-link>
+      <router-link v-if="authStore.isAdmin" to="/admin/laporan" class="hover:underline">
+        Laporan
+      </router-link>
       <router-link v-if="authStore.isAdmin" to="/admin/users" class="hover:underline">
         Manajemen User
       </router-link>

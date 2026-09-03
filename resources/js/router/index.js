@@ -44,6 +44,12 @@ const routes = [
     meta: { requiresAuth: true, adminOnly: true },
   },
   {
+    path: '/admin/laporan',
+    name: 'admin.laporan.index',
+    component: () => import('../pages/admin/laporan/Index.vue'),
+    meta: { requiresAuth: true, adminOnly: true },
+  },
+  {
     path: '/peminjaman',
     name: 'peminjaman.index',
     component: () => import('../pages/siswa/peminjaman/Index.vue'),
@@ -80,15 +86,16 @@ const routes = [
     meta: { requiresAuth: true, adminOnly: true },
   },
   {
-  path: '/profil',
-  name: 'profil.index',
-  component: () => import('../pages/profil/Index.vue'),
-  meta: { requiresAuth: true },
+    path: '/profil',
+    name: 'profil.index',
+    component: () => import('../pages/profil/Index.vue'),
+    meta: { requiresAuth: true },
   },
   {
-  path: '/pengaturan',
-  component: () => import('../pages/pengaturan/Index.vue'),
-  meta: { requiresAuth: true }, // sesuaikan dengan meta yang dipakai route /profil
+    path: '/pengaturan',
+    name: 'pengaturan.index',
+    component: () => import('../pages/pengaturan/Index.vue'),
+    meta: { requiresAuth: true },
   },
 ];
 

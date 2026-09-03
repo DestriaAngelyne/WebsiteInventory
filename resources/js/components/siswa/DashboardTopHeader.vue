@@ -1,27 +1,29 @@
 <template>
-  <header class="sticky top-0 z-10 bg-white border-b bg-opacity-90 backdrop-blur">
+  <header class="sticky top-0 z-10 border-b bg-white/80 backdrop-blur">
     <div class="flex flex-col gap-3 px-6 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-8">
       <div>
-        <h1 class="text-lg font-bold text-gray-800">{{ title }}</h1>
-        <p class="text-sm text-gray-500">{{ subtitle }}</p>
+        <h1 class="text-lg font-bold text-foreground">{{ title }}</h1>
+        <p class="text-sm text-muted-foreground">{{ subtitle }}</p>
       </div>
 
       <div class="flex items-center gap-3">
-        <router-link
-          to="/peminjaman/ajukan"
-          class="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-white bg-blue-600 rounded-lg shadow-sm hover:bg-blue-700"
+        <button
+          type="button"
+          @click="$emit('new-request')"
+          class="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm hover:bg-[#1d4ed8]"
         >
-          + Ajukan Pinjam Barang
-        </router-link>
+          <Plus class="w-4 h-4" />
+          Ajukan Pinjam Barang
+        </button>
 
         <router-link
           to="/notifikasi"
-          class="relative flex items-center justify-center w-10 h-10 text-gray-500 bg-white border rounded-lg hover:text-gray-800"
+          class="relative flex items-center justify-center w-10 h-10 rounded-lg border border-border bg-card text-muted-foreground hover:text-foreground"
         >
-          🔔
+          <Bell class="w-5 h-5" />
           <span
             v-if="notifCount > 0"
-            class="absolute flex items-center justify-center w-5 h-5 text-[10px] font-semibold text-white bg-red-600 rounded-full -right-1 -top-1"
+            class="absolute flex items-center justify-center w-5 h-5 text-[10px] font-semibold text-white bg-destructive rounded-full -right-1 -top-1"
           >
             {{ notifCount }}
           </span>
@@ -33,12 +35,14 @@
 
 <script setup>
 import { computed, onMounted } from 'vue';
+import { Bell, Plus } from 'lucide-vue-next';
 import { usePeminjamanStore } from '../../stores/peminjaman';
 
 defineProps({
   title: { type: String, default: 'Dashboard Saya' },
   subtitle: { type: String, default: 'Pantau status peminjaman sarpras kamu di sini.' },
 });
+defineEmits(['new-request']);
 
 const peminjamanStore = usePeminjamanStore();
 
