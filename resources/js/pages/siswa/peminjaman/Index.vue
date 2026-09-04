@@ -7,7 +7,7 @@
       </div>
       <button
         type="button"
-        @click="showRequestModal = true"
+        @click="uiStore.openRequestModal()"
         class="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold rounded-lg bg-primary text-primary-foreground shadow-sm hover:bg-[#1d4ed8]"
       >
         <Plus class="w-4 h-4" />
@@ -34,7 +34,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in peminjamanStore.myItems" :key="item.id" class="border-b border-border last:border-0 hover:bg-muted">
+          <tr v-for="item in peminjamanStore.myItems" :key="item.id" class="border-b border-border last:border-0 hover:bg-muted/50">
             <td class="px-4 py-3 font-medium text-card-foreground">{{ item.barang.nama_barang }}</td>
             <td class="px-4 py-3 text-muted-foreground">{{ item.jumlah }}</td>
             <td class="px-4 py-3 text-muted-foreground">{{ formatTanggal(item.tanggal_pinjam) }}</td>
@@ -94,14 +94,8 @@
       </table>
     </div>
 
-    <RequestModal
-      :open="showRequestModal"
-      @close="showRequestModal = false"
-      @submitted="peminjamanStore.fetchMyPeminjaman()"
-    />
-
-    <div v-if="showKembalikanModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-      <div class="w-full max-w-sm p-6 bg-white shadow-2xl rounded-2xl">
+    <div v-if="showKembalikanModal" class="fixed inset-0 z-50 flex items-center justify-center bg-foreground/40 backdrop-blur-sm">
+      <div class="w-full max-w-sm p-6 border rounded-2xl border-border bg-card shadow-2xl">
         <h2 class="mb-3 text-lg font-bold text-card-foreground">Kembalikan Barang</h2>
         <p class="mb-3 text-sm text-muted-foreground">
           Barang: <strong class="text-card-foreground">{{ selectedItem?.barang.nama_barang }}</strong>
@@ -112,7 +106,7 @@
           v-model="catatanPengembalian"
           rows="3"
           placeholder="Contoh: barangnya kemarin sempat jatuh, ada goresan kecil"
-          class="w-full px-3 py-2 mb-4 text-sm border rounded-lg border-border"
+          class="w-full px-3 py-2 mb-4 text-sm border rounded-lg border-border bg-background"
         ></textarea>
 
         <div class="flex gap-2">
@@ -126,8 +120,8 @@
       </div>
     </div>
 
-    <div v-if="showPerpanjanganModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-      <div class="w-full max-w-sm p-6 bg-white shadow-2xl rounded-2xl">
+    <div v-if="showPerpanjanganModal" class="fixed inset-0 z-50 flex items-center justify-center bg-foreground/40 backdrop-blur-sm">
+      <div class="w-full max-w-sm p-6 border rounded-2xl border-border bg-card shadow-2xl">
         <h2 class="mb-3 text-lg font-bold text-card-foreground">Minta Perpanjangan</h2>
         <p class="mb-3 text-sm text-muted-foreground">
           Barang: <strong class="text-card-foreground">{{ selectedItem?.barang.nama_barang }}</strong><br />
@@ -135,7 +129,7 @@
         </p>
 
         <label class="block mb-1 text-sm font-medium text-card-foreground">Tanggal Kembali Baru</label>
-        <input v-model="tanggalBaru" type="date" required class="w-full px-3 py-2 mb-4 border rounded-lg border-border" />
+        <input v-model="tanggalBaru" type="date" required class="w-full px-3 py-2 mb-4 border rounded-lg border-border bg-background" />
 
         <div class="flex gap-2">
           <button @click="handleMintaPerpanjangan" class="px-4 py-2 text-sm font-semibold rounded-lg bg-primary text-primary-foreground hover:bg-[#1d4ed8]">
@@ -154,12 +148,12 @@
 import { onMounted, ref } from 'vue';
 import { Plus } from 'lucide-vue-next';
 import { usePeminjamanStore } from '../../../stores/peminjaman';
-import RequestModal from '../../../components/siswa/RequestModal.vue';
+import { useUiStore } from '../../../stores/ui';
 import StatusBadge from '../../../components/ui/StatusBadge.vue';
 
 const peminjamanStore = usePeminjamanStore();
+const uiStore = useUiStore();
 
-const showRequestModal = ref(false);
 const showKembalikanModal = ref(false);
 const showPerpanjanganModal = ref(false);
 const selectedItem = ref(null);

@@ -4,6 +4,7 @@
     <div class="flex flex-col flex-1 min-w-0">
       <router-view />
     </div>
+    <RequestModal />
   </div>
 
   <div v-else>
@@ -15,6 +16,7 @@
 <script setup>
 import Navbar from './components/Navbar.vue';
 import DashboardSidebar from './components/siswa/DashboardSidebar.vue';
+import RequestModal from './components/siswa/RequestModal.vue';
 import { useAuthStore } from './stores/auth';
 
 const authStore = useAuthStore();

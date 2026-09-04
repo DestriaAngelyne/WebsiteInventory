@@ -15,8 +15,18 @@
     <nav class="flex-1 px-3 py-2 overflow-y-auto">
       <p class="px-3 pb-2 text-[11px] font-semibold tracking-wider text-muted-foreground uppercase">Menu</p>
       <ul class="flex flex-col gap-1">
-        <li v-for="item in navItems" :key="item.to">
+        <li v-for="item in navItems" :key="item.label">
+          <button
+            v-if="item.action"
+            type="button"
+            @click="item.action"
+            class="flex items-center w-full gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors text-muted-foreground hover:bg-muted hover:text-sidebar-foreground"
+          >
+            <component :is="item.icon" class="w-[18px] h-[18px]" />
+            <span class="flex-1 text-left">{{ item.label }}</span>
+          </button>
           <router-link
+            v-else
             :to="item.to"
             class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors"
             :class="isActive(item.to) ? 'bg-sidebar-accent text-sidebar-accent-foreground' : 'text-muted-foreground hover:bg-muted hover:text-sidebar-foreground'"
@@ -86,11 +96,13 @@ import {
 } from 'lucide-vue-next';
 import { useAuthStore } from '../../stores/auth';
 import { usePeminjamanStore } from '../../stores/peminjaman';
+import { useUiStore } from '../../stores/ui';
 
 const route = useRoute();
 const router = useRouter();
 const authStore = useAuthStore();
 const peminjamanStore = usePeminjamanStore();
+const uiStore = useUiStore();
 
 onMounted(() => {
   if (peminjamanStore.myItems.length === 0) {
@@ -121,7 +133,7 @@ const notifCount = computed(() => {
 const navItems = computed(() => [
   { label: 'Dashboard Saya', icon: LayoutDashboard, to: '/' },
   { label: 'Riwayat Peminjaman', icon: History, to: '/peminjaman' },
-  { label: 'Pengajuan Baru', icon: FilePlus2, to: '/peminjaman/ajukan' },
+  { label: 'Pengajuan Baru', icon: FilePlus2, action: () => uiStore.openRequestModal() },
   { label: 'Notifikasi & Status', icon: BellRing, to: '/notifikasi', badge: notifCount.value },
   { label: 'Pengaduan', icon: MessageSquare, to: '/pengaduan' },
   { label: 'Profil Saya', icon: User, to: '/profil' },

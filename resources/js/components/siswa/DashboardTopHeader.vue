@@ -1,6 +1,6 @@
 <template>
-  <header class="sticky top-0 z-10 border-b bg-white/80 backdrop-blur">
-    <div class="flex flex-col gap-3 px-6 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+  <header class="sticky top-0 z-20 border-b border-border bg-background/80 backdrop-blur-sm">
+    <div class="flex items-center justify-between gap-4 px-8 py-4">
       <div>
         <h1 class="text-lg font-bold text-foreground">{{ title }}</h1>
         <p class="text-sm text-muted-foreground">{{ subtitle }}</p>
@@ -9,7 +9,7 @@
       <div class="flex items-center gap-3">
         <button
           type="button"
-          @click="$emit('new-request')"
+          @click="uiStore.openRequestModal()"
           class="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm hover:bg-[#1d4ed8]"
         >
           <Plus class="w-4 h-4" />
@@ -37,14 +37,15 @@
 import { computed, onMounted } from 'vue';
 import { Bell, Plus } from 'lucide-vue-next';
 import { usePeminjamanStore } from '../../stores/peminjaman';
+import { useUiStore } from '../../stores/ui';
 
 defineProps({
   title: { type: String, default: 'Dashboard Saya' },
   subtitle: { type: String, default: 'Pantau status peminjaman sarpras kamu di sini.' },
 });
-defineEmits(['new-request']);
 
 const peminjamanStore = usePeminjamanStore();
+const uiStore = useUiStore();
 
 onMounted(() => {
   if (peminjamanStore.myItems.length === 0) {

@@ -56,12 +56,6 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: '/peminjaman/ajukan',
-    name: 'peminjaman.create',
-    component: () => import('../pages/siswa/peminjaman/Form.vue'),
-    meta: { requiresAuth: true },
-  },
-  {
     path: '/admin/users',
     name: 'admin.users.index',
     component: () => import('../pages/admin/users/Index.vue'),
@@ -120,6 +114,6 @@ router.beforeEach((to, from, next) => {
   }
 
   next();
-});
+}); 
 
 export default router;

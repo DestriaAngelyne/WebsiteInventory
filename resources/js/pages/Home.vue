@@ -17,10 +17,9 @@
     <DashboardTopHeader
       :title="`Halo, ${authStore.user?.name?.split(' ')[0] || authStore.user?.name} 👋`"
       subtitle="Pantau status peminjaman sarpras kamu di sini."
-      @new-request="showRequestModal = true"
     />
 
-    <main class="flex-1 px-6 py-6 space-y-8 sm:px-8">
+    <main class="flex-1 space-y-8 px-8 py-8">
       <div v-if="peminjamanStore.loading" class="text-gray-500">Memuat data...</div>
 
       <template v-else>
@@ -127,12 +126,15 @@
         <section class="border shadow-sm rounded-xl border-border bg-card">
           <div class="flex flex-col gap-3 p-5 border-b sm:flex-row sm:items-center sm:justify-between border-border">
             <h2 class="text-base font-bold text-card-foreground">Riwayat &amp; Status Pengajuan</h2>
-            <input
-              v-model="query"
-              type="search"
-              placeholder="Cari transaksi atau barang..."
-              class="w-full px-3 py-2 text-sm border rounded-lg border-border sm:w-72 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none"
-            />
+            <div class="relative w-full sm:w-72">
+              <Search class="absolute w-4 h-4 -translate-y-1/2 pointer-events-none left-3 top-1/2 text-muted-foreground" />
+              <input
+                v-model="query"
+                type="search"
+                placeholder="Cari transaksi atau barang..."
+                class="w-full rounded-lg border border-border bg-background py-2 pl-9 pr-3 text-sm text-foreground outline-none placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20"
+              />
+            </div>
           </div>
 
           <div class="overflow-x-auto">
@@ -148,7 +150,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in filteredHistory" :key="item.id" class="border-b border-border last:border-0 hover:bg-muted">
+                <tr v-for="item in filteredHistory" :key="item.id" class="border-b border-border last:border-0 hover:bg-muted/50">
                   <td class="px-5 py-4 text-sm font-medium text-primary">PJM-{{ item.id }}</td>
                   <td class="px-5 py-4 text-sm font-medium text-card-foreground">{{ item.barang?.nama_barang }}</td>
                   <td class="px-5 py-4 text-sm text-muted-foreground">{{ formatTanggal(item.created_at) }}</td>
@@ -179,15 +181,9 @@
       </template>
     </main>
 
-    <RequestModal
-      :open="showRequestModal"
-      @close="showRequestModal = false"
-      @submitted="peminjamanStore.fetchMyPeminjaman()"
-    />
-
     <!-- Modal: Minta Perpanjangan -->
-    <div v-if="showPerpanjanganModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-      <div class="w-full max-w-sm p-6 bg-white shadow-2xl rounded-2xl">
+    <div v-if="showPerpanjanganModal" class="fixed inset-0 z-50 flex items-center justify-center bg-foreground/40 backdrop-blur-sm">
+      <div class="w-full max-w-sm p-6 bg-card shadow-2xl rounded-2xl border border-border">
         <h2 class="mb-3 text-lg font-bold text-card-foreground">Minta Perpanjangan</h2>
         <p class="mb-3 text-sm text-muted-foreground">
           Barang: <strong class="text-card-foreground">{{ selectedItem?.barang?.nama_barang }}</strong><br />
@@ -209,8 +205,8 @@
     </div>
 
     <!-- Modal: Detail transaksi -->
-    <div v-if="showDetailModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-      <div class="w-full max-w-sm p-6 bg-white shadow-2xl rounded-2xl">
+    <div v-if="showDetailModal" class="fixed inset-0 z-50 flex items-center justify-center bg-foreground/40 backdrop-blur-sm">
+      <div class="w-full max-w-sm p-6 bg-card shadow-2xl rounded-2xl border border-border">
         <h2 class="mb-1 text-lg font-bold text-card-foreground">PJM-{{ selectedItem?.id }}</h2>
         <p class="mb-4 text-xs text-muted-foreground">{{ selectedItem?.barang?.nama_barang }}</p>
 
@@ -241,20 +237,19 @@ import {
   Eye,
   PackageOpen,
   QrCode,
+  Search,
   Timer,
   Wallet,
 } from 'lucide-vue-next';
 import { useAuthStore } from '../stores/auth';
 import { usePeminjamanStore } from '../stores/peminjaman';
 import DashboardTopHeader from '../components/siswa/DashboardTopHeader.vue';
-import RequestModal from '../components/siswa/RequestModal.vue';
 import StatusBadge from '../components/ui/StatusBadge.vue';
 
 const authStore = useAuthStore();
 const peminjamanStore = usePeminjamanStore();
 
 const query = ref('');
-const showRequestModal = ref(false);
 const showPerpanjanganModal = ref(false);
 const showDetailModal = ref(false);
 const selectedItem = ref(null);
